@@ -3,154 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marty McEnroe | Principal AI Architect & Enterprise Strategist</title>
+    <title>Marty McEnroe | Principal AI Architect</title>
     <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #e0e0e0;
+            --accent-color: #00ff41; /* Cyberpunk Green */
+            --secondary-color: #888;
+            --card-bg: #111;
+            --border-color: #333;
+            --hover-bg: #1a1a1a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
-            background-color: #f9f9f9;
         }
         header {
-            text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 2rem;
-            border-bottom: 1px solid #eee;
+            animation: fadeIn 1.5s ease-in-out;
         }
         h1 {
+            font-size: 2.5rem;
+            letter-spacing: -2px;
             margin-bottom: 0.5rem;
-            color: #111;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+            color: var(--text-color);
         }
         h2 {
-            font-weight: 400;
-            color: #666;
-            margin-top: 0;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-weight: normal;
         }
-        .bio {
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-        .cta-container {
-            text-align: center;
-            margin: 3rem 0;
-            padding: 2rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .button {
+        p { margin-bottom: 1rem; color: var(--secondary-color); }
+        strong { color: var(--text-color); }
+        
+        a { color: var(--accent-color); text-decoration: none; transition: all 0.2s; }
+        a:hover { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); text-decoration: underline; }
+
+        .btn {
             display: inline-block;
-            background-color: #0077b5; /* LinkedIn Blue-ish */
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 4px;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
             font-weight: bold;
-            transition: background-color 0.2s;
-            margin: 0 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background: transparent;
+            cursor: pointer;
         }
-        .button:hover {
-            background-color: #005582;
+        .btn:hover {
+            background-color: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            text-decoration: none;
         }
-        .button.secondary {
-            background-color: #24292e; /* GitHub Black */
+        .btn-secondary {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
         }
-        .button.secondary:hover {
-            background-color: #444;
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            border-color: var(--text-color);
         }
+
+        .cta-box {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+        }
+
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
         .project-card {
-            background: white;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            transition: transform 0.2s, border-color 0.2s;
         }
-        .project-card h3 {
-            margin-top: 0;
+        .project-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
         }
-        .project-card a {
-            color: #0366d6;
-            text-decoration: none;
+        .project-card h3 { 
+            color: var(--text-color); 
+            font-size: 1.3rem; 
+            margin-bottom: 0.5rem; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .project-card a:hover {
-            text-decoration: underline;
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 2px;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            text-transform: uppercase;
         }
+        .status-badge.public { border-color: var(--accent-color); color: var(--accent-color); }
+        .status-badge.private { border-color: #ff3333; color: #ff3333; }
+
         footer {
-            margin-top: 4rem;
+            margin-top: 5rem;
             text-align: center;
-            color: #888;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            color: #444;
         }
+        
         .recruitment-note {
-            background-color: #e6fffa;
-            border: 1px solid #b2f5ea;
-            color: #234e52;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-top: 2rem;
             font-size: 0.9rem;
+            margin-top: 1rem;
+            color: var(--text-color);
         }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <header>
         <h1>Marty McEnroe</h1>
-        <h2>Principal AI Architect & Enterprise Strategist</h2>
+        <h2>>> Principal AI Architect & Enterprise Strategist</h2>
         <p>ThriveTech.ai | Professional Engineer | 21 Patents</p>
     </header>
 
     <main>
         <div class="bio">
-            <p>I am an <strong>Enterprise Architect</strong> and <strong>AI Strategist</strong> with a deep background in engineering, cloud infrastructure, and application security. I focus on designing and executing secure, scalable, and business-driven AI strategies.</p>
-            <p>My passion is architecting robust, high-value solutions that balance elegance and simplicity with a pragmatic focus on execution.</p>
+            <p>I architect <strong>robust, high-value AI solutions</strong> by balancing elegance with a pragmatic focus on execution.</p>
+            <p>Specializing in Serverless AI, Agentic Workflows, and Enterprise Security.</p>
         </div>
 
-        <div class="cta-container">
-            <p><strong>Recruiters & Visitors:</strong></p>
-            <div style="margin-top: 1rem;">
-                <!-- Resume Link -->
-                <a href="resume.pdf" class="button">Download Resume</a>
-                <a href="https://linkedin.com/in/martymcenroe" class="button">LinkedIn Profile</a>
+        <div class="cta-box">
+            <p style="color: var(--accent-color); margin-bottom: 1rem;"><strong>// RECRUITER ACCESS PROTOCOL</strong></p>
+            <div>
+                <a href="resume.pdf" class="btn">Download Resume_v1.0.pdf</a>
+                <a href="https://linkedin.com/in/martymcenroe" class="btn btn-secondary">Connect on LinkedIn</a>
             </div>
             <div class="recruitment-note">
-                <strong>Recruiters:</strong> Please visit my <a href="https://github.com/martymcenroe/AgentOS" target="_blank">AgentOS repository</a> and star it before contacting me.
+                <p>> <strong>System Check:</strong> Before contacting, please <a href="https://github.com/martymcenroe/AgentOS" target="_blank">verify compatibility</a> by starring the AgentOS repo.</p>
             </div>
         </div>
 
-        <h3>Selected Projects</h3>
+        <h3 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 3rem;">// SELECTED PROJECTS</h3>
         <div class="projects">
+            <!-- AgentOS -->
             <div class="project-card">
-                <h3><a href="https://github.com/martymcenroe/AgentOS">AgentOS</a></h3>
-                <p>An experimental framework for autonomous AI agent orchestration.</p>
+                <h3>AgentOS <span class="status-badge public">Public</span></h3>
+                <p>An experimental framework for autonomous AI agent orchestration and filesystem management.</p>
+                <a href="https://github.com/martymcenroe/AgentOS/wiki" target="_blank">>> Access Wiki Documentation</a>
             </div>
+
+            <!-- RCA-PDF -->
             <div class="project-card">
-                <h3><a href="https://github.com/martymcenroe/Aletheia">Aletheia</a></h3>
+                <h3>RCA-PDF Pipeline <span class="status-badge public">Public</span></h3>
+                <p>Automated invoice extraction and processing pipeline using AI vision models.</p>
+                <a href="https://github.com/martymcenroe/RCA-PDF-extraction-pipeline-wiki/wiki" target="_blank">>> View Pipeline Architecture</a>
+            </div>
+
+            <!-- Aletheia -->
+            <div class="project-card">
+                <h3>Aletheia <span class="status-badge public">Public</span></h3>
                 <p>Serverless AI context analysis engine built on AWS Lambda and LangGraph.</p>
+                <a href="https://martymcenroe.github.io/Aletheia/web/" target="_blank">>> Launch Web Interface</a>
             </div>
+
+            <!-- Clio (Private) -->
             <div class="project-card">
-                <h3><a href="https://github.com/martymcenroe/GlucoPulse.ai">GlucoPulse.ai</a></h3>
-                <p>Enterprise-grade AI health platform for time-series glucose data analysis.</p>
+                <h3>Clio <span class="status-badge private">Restricted</span></h3>
+                <p>Conversation harvesting engine. Archives and indexes AI interactions for long-term recall.</p>
+                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Clio&body=Hi Marty,%0D%0A%0D%0AI would like to request access to the Clio repository for review.%0D%0A%0D%0AMy GitHub Username: ">>> Request Access Credentials</a>
             </div>
+
+            <!-- Talos (Private) -->
             <div class="project-card">
-                <h3><a href="https://github.com/martymcenroe/iconoscope">Iconoscope</a></h3>
-                <p>Enterprise Architecture Specification for Azure-native video analysis.</p>
+                <h3>Talos <span class="status-badge private">Classified</span></h3>
+                <p>Talent-OS. Advanced recruitment and candidate filtering system using agentic evaluation.</p>
+                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Talos&body=Hi Marty,%0D%0A%0D%0AI would like to request access to the Talos repository.%0D%0A%0D%0AMy GitHub Username: ">>> Request Clearance</a>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Marty McEnroe. All rights reserved.</p>
-        <p><a href="https://github.com/martymcenroe" style="color:#888;">GitHub</a> | <a href="https://martymcenroe.ai" style="color:#888;">martymcenroe.ai</a> | <a href="https://thrivetech.ai" style="color:#888;">ThriveTech.ai</a></p>
+        <p>&copy; 2026 ThriveTech.ai | Plano, TX</p>
+        <p style="margin-top: 1rem;">
+            <a href="https://github.com/martymcenroe" style="color:#666;">GitHub</a> | 
+            <a href="https://martymcenroe.ai" style="color:#666;">martymcenroe.ai</a> | 
+            <a href="https://thrivetech.ai" style="color:#666;">ThriveTech.ai</a>
+        </p>
     </footer>
 </body>
 </html>
