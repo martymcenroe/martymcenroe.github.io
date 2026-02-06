@@ -4,211 +4,360 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marty McEnroe | Principal AI Architect</title>
+    <meta name="description" content="Principal AI Architect & Enterprise Strategist. Building multi-agent orchestration systems, serverless AI engines, and enterprise-grade tooling.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050505;
-            --text-color: #e0e0e0;
-            --accent-color: #00ff41; /* Cyberpunk Green */
-            --secondary-color: #888;
-            --card-bg: #111;
-            --border-color: #333;
-            --hover-bg: #1a1a1a;
+            --bg: #0d1117;
+            --surface: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --amber: #d29922;
+            --red: #f85149;
+            --border: #30363d;
+            --radius: 8px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
-        header {
-            margin-bottom: 4rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 2rem;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: -2px;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
-            color: var(--text-color);
-        }
-        h2 {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            font-weight: normal;
-        }
-        p { margin-bottom: 1rem; color: var(--secondary-color); }
-        strong { color: var(--text-color); }
-        
-        a { color: var(--accent-color); text-decoration: none; transition: all 0.2s; }
-        a:hover { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); text-decoration: underline; }
+        a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+        a:hover { opacity: 0.85; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        strong { color: var(--text); font-weight: 600; }
 
-        .btn {
-            display: inline-block;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 20px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            background: transparent;
-            cursor: pointer;
+        header { margin-bottom: 3rem; }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.4rem;
         }
-        .btn:hover {
-            background-color: rgba(0, 255, 65, 0.1);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
-            text-decoration: none;
+        header .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.6rem;
         }
-        .btn-secondary {
-            border-color: var(--secondary-color);
-            color: var(--secondary-color);
-        }
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--text-color);
-            border-color: var(--text-color);
+        header .meta {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
         }
 
         .cta-box {
-            background: var(--card-bg);
-            border: 1px solid var(--accent-color);
-            padding: 2rem;
-            margin: 3rem 0;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .cta-box .cta-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        .cta-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: var(--radius);
+            background: transparent;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .btn:hover {
+            border-color: var(--accent);
+            background: rgba(88, 166, 255, 0.08);
+            color: var(--text);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+        .btn-primary:hover { opacity: 0.9; color: var(--bg); }
+
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
         }
         .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            transition: transform 0.2s, border-color 0.2s;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            transition: border-color 0.2s, transform 0.15s;
         }
         .project-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
+            border-color: var(--accent);
+            transform: translateY(-1px);
         }
-        .project-card h3 { 
-            color: var(--text-color); 
-            font-size: 1.3rem; 
-            margin-bottom: 0.5rem; 
+        .project-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
-        .status-badge {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 2px;
-            border: 1px solid var(--secondary-color);
-            color: var(--secondary-color);
+        .project-card .desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        .project-card .link { font-size: 0.85rem; font-weight: 500; }
+        .badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .status-badge.public { border-color: var(--accent-color); color: var(--accent-color); }
-        .status-badge.private { border-color: #ff3333; color: #ff3333; }
+        .badge-public { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+        .badge-private { background: rgba(248, 81, 73, 0.15); color: var(--red); }
+        .badge-featured { background: rgba(88, 166, 255, 0.15); color: var(--accent); }
+
+        .featured-card {
+            background: var(--surface);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 1.75rem 2rem;
+            margin-bottom: 1rem;
+        }
+        .featured-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .featured-card .desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        .featured-card .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .blog-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .blog-card:hover { border-color: var(--accent); }
+        .blog-card .date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+        .blog-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .blog-card h3 a { color: var(--text); }
+        .blog-card h3 a:hover { color: var(--accent); }
+        .blog-card .excerpt {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        .blog-card .read-more { font-size: 0.85rem; font-weight: 500; }
 
         footer {
-            margin-top: 5rem;
-            text-align: center;
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
             padding-top: 2rem;
-            color: #444;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
-        
-        .recruitment-note {
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            color: var(--text-color);
-        }
+        footer .links { margin-top: 0.75rem; }
+        footer .links a { margin: 0 0.75rem; color: var(--text-secondary); }
+        footer .links a:hover { color: var(--accent); }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 640px) {
+            body { padding: 2rem 1.25rem; }
+            header h1 { font-size: 1.8rem; }
+            .cta-box { flex-direction: column; align-items: flex-start; }
+            .featured-card { padding: 1.25rem 1.5rem; }
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Marty McEnroe</h1>
-        <h2>>> Principal AI Architect & Enterprise Strategist</h2>
-        <p>ThriveTech.ai | Professional Engineer | 21 Patents</p>
+        <div class="subtitle">Principal AI Architect &amp; Enterprise Strategist</div>
+        <div class="meta">ThriveTech.ai &middot; Professional Engineer &middot; 21 Patents &middot; Plano, TX</div>
     </header>
 
+    <div class="cta-box">
+        <p class="cta-text">Open to architectural leadership roles in AI/ML, platform engineering, and enterprise strategy.</p>
+        <div class="cta-buttons">
+            <a href="resume.pdf" class="btn btn-primary">Resume</a>
+            <a href="https://linkedin.com/in/martymcenroe" class="btn">LinkedIn</a>
+            <a href="https://github.com/martymcenroe" class="btn">GitHub</a>
+        </div>
+    </div>
+
     <main>
-        <div class="bio">
-            <p>I architect <strong>robust, high-value AI solutions</strong> by balancing elegance with a pragmatic focus on execution.</p>
-            <p>Specializing in Serverless AI, Agentic Workflows, and Enterprise Security.</p>
+        <div class="section-title">Featured</div>
+        <div class="featured-card">
+            <h3>
+                <a href="https://github.com/martymcenroe/AssemblyZero">AssemblyZero</a>
+                <span class="badge badge-featured">Active</span>
+            </h3>
+            <p class="desc">Multi-agent orchestration framework for Claude Code and Gemini. Manages concurrent AI agents across repositories with worktree isolation, automated audits, Gemini-as-reviewer gates, and parameterized configuration.</p>
+            <div class="highlights">
+                <span class="tag">Multi-Agent</span>
+                <span class="tag">Claude Code</span>
+                <span class="tag">Gemini</span>
+                <span class="tag">Python</span>
+                <span class="tag">Orchestration</span>
+            </div>
+            <a href="https://github.com/martymcenroe/AssemblyZero/wiki" class="link">Documentation &rarr;</a>
         </div>
 
-        <div class="cta-box">
-            <p style="color: var(--accent-color); margin-bottom: 1rem;"><strong>// RECRUITER ACCESS PROTOCOL</strong></p>
-            <div>
-                <a href="resume.pdf" class="btn">Download Resume_v1.0.pdf</a>
-                <a href="https://linkedin.com/in/martymcenroe" class="btn btn-secondary">Connect on LinkedIn</a>
-            </div>
-            <div class="recruitment-note">
-                <p>> <strong>ACCESS LOCKED:</strong> To unlock a reply, you must <a href="https://github.com/martymcenroe/AgentOS" target="_blank">complete the Star Quest</a> on the AgentOS repo.</p>
-            </div>
-        </div>
-
-        <h3 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 3rem;">// SELECTED PROJECTS</h3>
+        <div class="section-title" style="margin-top: 3rem;">Projects</div>
         <div class="projects">
-            <!-- AgentOS -->
             <div class="project-card">
-                <h3>AgentOS <span class="status-badge public">Public</span></h3>
-                <p>An experimental framework for autonomous AI agent orchestration and filesystem management.</p>
-                <a href="https://github.com/martymcenroe/AgentOS/wiki" target="_blank">>> Access Wiki Documentation</a>
+                <h3>
+                    <a href="https://github.com/martymcenroe/Aletheia">Aletheia</a>
+                    <span class="badge badge-public">Public</span>
+                </h3>
+                <p class="desc">Serverless AI context analysis engine. Chrome Extension backend on AWS Lambda and LangGraph with stateful agentic workflows.</p>
+                <a href="https://aletheia.study" class="link">Live demo &rarr;</a>
             </div>
 
-            <!-- RCA-PDF -->
             <div class="project-card">
-                <h3>RCA-PDF Pipeline <span class="status-badge public">Public</span></h3>
-                <p>Automated invoice extraction and processing pipeline using AI vision models.</p>
-                <a href="https://github.com/martymcenroe/RCA-PDF-extraction-pipeline-wiki/wiki" target="_blank">>> View Pipeline Architecture</a>
+                <h3>
+                    <a href="https://github.com/martymcenroe/RCA-PDF-extraction-pipeline">RCA-PDF Pipeline</a>
+                    <span class="badge badge-public">Public</span>
+                </h3>
+                <p class="desc">Automated document extraction and processing pipeline using AI vision models for invoice and form data capture.</p>
+                <a href="https://github.com/martymcenroe/RCA-PDF-extraction-pipeline" class="link">View on GitHub &rarr;</a>
             </div>
 
-            <!-- Aletheia -->
             <div class="project-card">
-                <h3>Aletheia <span class="status-badge public">Public</span></h3>
-                <p>Serverless AI context analysis engine built on AWS Lambda and LangGraph.</p>
-                <a href="https://aletheia.study" target="_blank">>> Launch Web Interface</a>
+                <h3>
+                    <a href="https://github.com/martymcenroe/Clio">Clio</a>
+                    <span class="badge badge-public">Public</span>
+                </h3>
+                <p class="desc">Chrome extension for extracting and archiving Gemini conversations. Preserves AI interaction history for long-term recall and analysis.</p>
+                <a href="https://github.com/martymcenroe/Clio" class="link">View on GitHub &rarr;</a>
             </div>
 
-            <!-- Clio (Private) -->
             <div class="project-card">
-                <h3>Clio <span class="status-badge private">Restricted</span></h3>
-                <p>Conversation harvesting engine. Archives and indexes AI interactions for long-term recall.</p>
-                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Clio&body=Hi Marty,%0D%0A%0D%0AI would like to request access to the Clio repository for review.%0D%0A%0D%0AMy GitHub Username: ">>> Request Access Credentials</a>
+                <h3>
+                    <a href="https://github.com/martymcenroe/unleashed">Unleashed</a>
+                    <span class="badge badge-public">Public</span>
+                </h3>
+                <p class="desc">Permission bypass system for Claude Code. Enables semi-autonomous agent sessions with auto-approval for power user workflows.</p>
+                <a href="https://github.com/martymcenroe/unleashed" class="link">View on GitHub &rarr;</a>
             </div>
 
-            <!-- Talos (Private) -->
             <div class="project-card">
-                <h3>Talos <span class="status-badge private">Classified</span></h3>
-                <p>Talent-OS. Advanced recruitment and candidate filtering system using agentic evaluation.</p>
-                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Talos&body=Hi Marty,%0D%0A%0D%0AI would like to request access to the Talos repository.%0D%0A%0D%0AMy GitHub Username: ">>> Request Clearance</a>
+                <h3>
+                    <a href="https://github.com/martymcenroe/ai-power-systems-compendium">AI Power Systems</a>
+                    <span class="badge badge-public">Public</span>
+                </h3>
+                <p class="desc">Curated AI/ML resources for the Bulk Power System and utility sector. Bridging power engineering and artificial intelligence.</p>
+                <a href="https://github.com/martymcenroe/ai-power-systems-compendium" class="link">View on GitHub &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <h3>
+                    Talos
+                    <span class="badge badge-private">Private</span>
+                </h3>
+                <p class="desc">Recruitment and candidate evaluation platform using agentic analysis for talent assessment.</p>
+                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Talos" class="link">Request access &rarr;</a>
+            </div>
+        </div>
+
+        <div class="section-title">Blog</div>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="date">February 5, 2026</div>
+                <h3><a href="blog/from-agentos-to-assemblyzero.html">From AgentOS to AssemblyZero: A Deterministic Refactor</a></h3>
+                <p class="excerpt">How we executed a project-wide hard-fork and rename, achieving a 100% stable build and reducing build noise by over 99% in a single session.</p>
+                <a href="blog/from-agentos-to-assemblyzero.html" class="read-more">Read post &rarr;</a>
+            </div>
+
+            <div class="blog-card">
+                <div class="date">February 2026</div>
+                <h3><a href="blog/permission-friction-in-claude-code.html">Working Around Permission Friction in Claude Code</a></h3>
+                <p class="excerpt">Running 12 agents across 4 repos pushed Claude Code's permission system to its limits. Here's what I learned and the tools I built.</p>
+                <a href="blog/permission-friction-in-claude-code.html" class="read-more">Read post &rarr;</a>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 ThriveTech.ai | Plano, TX</p>
-        <p style="margin-top: 1rem;">
-            <a href="https://github.com/martymcenroe" style="color:#666;">GitHub</a> | 
-            <a href="https://martymcenroe.ai" style="color:#666;">martymcenroe.ai</a> | 
-            <a href="https://thrivetech.ai" style="color:#666;">ThriveTech.ai</a>
-        </p>
+        <p>&copy; 2026 Marty McEnroe &middot; ThriveTech.ai &middot; Plano, TX</p>
+        <div class="links">
+            <a href="https://github.com/martymcenroe">GitHub</a>
+            <a href="https://linkedin.com/in/martymcenroe">LinkedIn</a>
+            <a href="mailto:marty@thrivetech.ai">Email</a>
+        </div>
     </footer>
 </body>
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Around Permission Friction in Claude Code | Marty McEnroe</title>
+    <meta name="description" content="Running 12 agents across 4 repos pushed Claude Code's permission system to its limits. Here's what I learned and the tools I built.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --border: #30363d;
+            --radius: 8px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { opacity: 0.85; }
+
+        .back { font-size: 0.9rem; margin-bottom: 2.5rem; display: inline-block; }
+        .back:hover { text-decoration: underline; }
+
+        article header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        article header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; margin-bottom: 0.75rem; }
+        .meta { font-size: 0.875rem; color: var(--text-secondary); }
+        .meta .tag { background: rgba(88, 166, 255, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: 0.5rem; }
+        .lede { font-size: 1.1rem; color: var(--text); font-style: italic; margin-bottom: 2rem; line-height: 1.7; }
+
+        article p { margin-bottom: 1.25rem; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; }
+        article strong { color: var(--text); }
+        article h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 1rem; color: var(--text); }
+        article h3 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--text); }
+        article ul, article ol { margin-bottom: 1.25rem; padding-left: 1.5rem; color: var(--text-secondary); }
+        article li { margin-bottom: 0.5rem; font-size: 1.05rem; line-height: 1.7; }
+        article code {
+            background: var(--surface);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            border: 1px solid var(--border);
+        }
+        article pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin-bottom: 1.25rem;
+        }
+        article pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+        article hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+        footer { margin-top: 4rem; border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); text-align: center; }
+
+        @media (max-width: 640px) {
+            body { padding: 2rem 1.25rem; }
+            article header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="../" class="back">&larr; Back to martymcenroe.ai</a>
+
+    <article>
+        <header>
+            <h1>Working Around Permission Friction in Claude Code: A Power User's Journey</h1>
+            <div class="meta">
+                February 2026
+                <span class="tag">Claude Code</span>
+                <span class="tag">Tooling</span>
+            </div>
+        </header>
+
+        <p class="lede">I love Claude Code. I also run 12 agents simultaneously across 4 repos. Here's what I learned about pushing the permission system to its limits&mdash;and the tools I built to make it work.</p>
+
+        <h2>The Setup: Multi-Agent Workflows</h2>
+
+        <p>I'm not a typical Claude Code user. On any given day, I have:</p>
+        <ul>
+            <li>3&ndash;4 agents working on different features in parallel</li>
+            <li>Worktrees for each active issue</li>
+            <li>Sessions running across Aletheia, Talos, AssemblyZero, and maintenance repos</li>
+            <li>Agents that I want to run semi-autonomously while I focus elsewhere</li>
+        </ul>
+
+        <p>Claude Code is designed for interactive use&mdash;a human at the keyboard, thoughtfully reviewing each action. That's a great default. But when you're running multiple agents and want to step away, the permission system becomes a bottleneck.</p>
+
+        <p>This isn't a criticism of the design philosophy. Safety-first is correct. But power users need escape hatches, and I ended up building my own.</p>
+
+        <h2>The Five Friction Points</h2>
+
+        <p>After months of intensive use, I've identified five areas where the permission system creates friction for advanced workflows:</p>
+
+        <h3>1. Permissions Don't Survive Compaction</h3>
+
+        <p>When a conversation gets long enough, Claude Code compacts the context. The summary preserves facts but loses operational state&mdash;including which permissions were granted.</p>
+
+        <p>Post-compaction, an agent that was happily running <code>git commit</code> commands suddenly needs approval again. If you're not at your keyboard, the agent stalls.</p>
+
+        <p><strong>What would help:</strong> Persisting granted permissions across compaction, or a way to "lock in" session permissions.</p>
+
+        <h3>2. Permission Syntax is Tricky</h3>
+
+        <p>Getting patterns to match requires experimentation:</p>
+
+<pre><code>"Bash(git:*)"           // Does this work?
+"Bash(git -C:*)"        // Or this?
+"Bash(git -C /path:*)"  // Or this?</code></pre>
+
+        <p>On Windows, there's additional complexity with path formats (<code>C:\</code> vs <code>/c/</code>), tilde expansion, and the MSYS path conversion issue where <code>/aws/lambda/...</code> becomes <code>C:/aws/lambda/...</code>.</p>
+
+        <p><strong>What would help:</strong> Better documentation of pattern syntax, or a pattern tester tool.</p>
+
+        <h3>3. Permissions Replace, Not Inherit</h3>
+
+        <p>I assumed permissions would cascade:</p>
+
+<pre><code>~/.claude/settings.local.json          # Base permissions
+~/Projects/.claude/settings.local.json  # Add project permissions
+~/Projects/Talos/.claude/settings.local.json  # Add Talos-specific</code></pre>
+
+        <p>But they replace entirely. If Talos has its own permissions block, it ignores everything above. This means duplicating the full permission set in every project.</p>
+
+        <p><strong>What would help:</strong> An inheritance model, or a way to "include" parent permissions.</p>
+
+        <h3>4. Multi-Repo Workflows Are Hard</h3>
+
+        <p>When working across repos, each has its own permission context. An agent in Talos can't reference patterns approved in Aletheia. Switching between projects means re-establishing permissions.</p>
+
+        <p><strong>What would help:</strong> User-level permissions that apply everywhere, with project-level additions.</p>
+
+        <h3>5. The .claude Directory Protection</h3>
+
+        <p>Every change to <code>.claude/</code> requires human approval. This makes sense&mdash;it's configuration that affects agent behavior. But when you're iterating on hooks, skills, or settings, the approval frequency is high.</p>
+
+        <p>I understand the caution here. You don't want an agent modifying its own guardrails. But for power users actively developing their configuration, it's a speed bump.</p>
+
+        <p><strong>What would help:</strong> A "developer mode" that relaxes <code>.claude</code> protections, or batch approval for related changes.</p>
+
+        <h2>What I Built: AssemblyZero</h2>
+
+        <p>Rather than fight the permission system, I built tools to work alongside it.</p>
+
+        <h3>Permission Hygiene: assemblyzero-permissions.py</h3>
+
+        <p>Every manual approval saves the exact command as a new permission. After a few sessions:</p>
+
+<pre><code>"Bash(git -C /c/Users/mcwiz/Projects/Aletheia commit -m \"docs: cleanup 2026-01-10\")"</code></pre>
+
+        <p>That's not reusable&mdash;it has a specific date baked in. These "session vends" accumulate and clutter the settings file.</p>
+
+        <p><code>assemblyzero-permissions.py</code> cleans them up:</p>
+        <ul>
+            <li>Detects one-time permissions vs. reusable patterns</li>
+            <li>Removes oversized entries (sometimes full prompts get saved accidentally)</li>
+            <li>Validates JSON before writing (prevents corruption)</li>
+            <li>Syncs permissions across the project hierarchy</li>
+        </ul>
+
+<pre><code>poetry run python tools/assemblyzero-permissions.py --clean --project Aletheia
+# Removed 47 session vends, kept 56 reusable patterns</code></pre>
+
+        <h3>Friction Logging: /zugzwang</h3>
+
+        <p>When I hit a permission prompt I didn't expect, I log it:</p>
+
+<pre><code>/zugzwang
+> .b git -C /c/Users/mcwiz/Projects/Talos commit -m "feat: add tests"</code></pre>
+
+        <p>The log helps me identify patterns I should add to my allowlist. Over time, friction decreases as I build up the right permissions.</p>
+
+        <h3>The Nuclear Option: Unleashed</h3>
+
+        <p>For sessions where I want to step away entirely, I built <a href="https://github.com/martymcenroe/unleashed">Unleashed</a>&mdash;a wrapper that auto-approves after a 10-second countdown.</p>
+
+        <p>It's not for everyone. You're trusting the agent completely. But for low-risk tasks where I've already reviewed the approach, it lets me run unattended.</p>
+
+        <h2>Suggestions for the Claude Code Team</h2>
+
+        <p>These aren't complaints&mdash;they're suggestions from someone who uses the product heavily and wants it to scale to advanced workflows:</p>
+
+        <ol>
+            <li><strong>Permission persistence across compaction</strong>&mdash;Remember what was approved, even after summarization</li>
+            <li><strong>Pattern syntax documentation</strong>&mdash;A reference for wildcards, path formats, and tool-specific patterns</li>
+            <li><strong>Permission inheritance</strong>&mdash;Let project-level settings extend rather than replace parent settings</li>
+            <li><strong>User-level permissions</strong>&mdash;Patterns that apply regardless of which project is active</li>
+            <li><strong>Developer mode for .claude</strong>&mdash;Optional relaxed protection for users actively developing their configuration</li>
+            <li><strong>Pattern tester</strong>&mdash;A way to check if a pattern will match a given command before running it</li>
+        </ol>
+
+        <h2>The Bigger Picture</h2>
+
+        <p>Claude Code's permission system is doing its job: preventing agents from running amok. The friction I experience is the cost of safety, and that's a reasonable trade-off for most users.</p>
+
+        <p>But as AI-assisted development matures, power users will push boundaries. Multi-agent workflows, autonomous sessions, cross-project coordination&mdash;these patterns need escape hatches.</p>
+
+        <p><a href="https://github.com/martymcenroe/AssemblyZero">AssemblyZero</a> is my escape hatch. Maybe some of these ideas will make it into Claude Code itself. Until then, the tools are open source for anyone facing similar challenges.</p>
+
+        <hr>
+
+        <p><em>Built with Claude Opus 4.5. I've approved approximately 10,000 permission prompts in the making of this blog post.</em></p>
+    </article>
+
+    <footer>
+        <p>&copy; 2026 <a href="../">Marty McEnroe</a> &middot; ThriveTech.ai</p>
+    </footer>
+</body>
+</html>

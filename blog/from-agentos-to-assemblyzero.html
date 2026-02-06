@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From AgentOS to AssemblyZero | Marty McEnroe</title>
+    <meta name="description" content="How we executed a project-wide hard-fork and rename, achieving a 100% stable build and reducing build noise by over 99%.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --border: #30363d;
+            --radius: 8px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { opacity: 0.85; }
+
+        .back { font-size: 0.9rem; margin-bottom: 2.5rem; display: inline-block; }
+        .back:hover { text-decoration: underline; }
+
+        article header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        article header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; margin-bottom: 0.75rem; }
+        .meta { font-size: 0.875rem; color: var(--text-secondary); }
+        .meta .tag { background: rgba(88, 166, 255, 0.1); color: var(--accent); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: 0.5rem; }
+
+        article p { margin-bottom: 1.25rem; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; }
+        article strong { color: var(--text); }
+        article h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 1rem; color: var(--text); }
+        article ul, article ol { margin-bottom: 1.25rem; padding-left: 1.5rem; color: var(--text-secondary); }
+        article li { margin-bottom: 0.5rem; font-size: 1.05rem; line-height: 1.7; }
+        article code {
+            background: var(--surface);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            border: 1px solid var(--border);
+        }
+        article hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+        .highlight {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .highlight p { margin-bottom: 0; font-size: 1rem; }
+        .closing { font-style: italic; color: var(--text); font-size: 1.1rem; margin-top: 2rem; }
+
+        footer { margin-top: 4rem; border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); text-align: center; }
+
+        @media (max-width: 640px) {
+            body { padding: 2rem 1.25rem; }
+            article header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="../" class="back">&larr; Back to martymcenroe.ai</a>
+
+    <article>
+        <header>
+            <h1>From AgentOS to AssemblyZero: A Deterministic Refactor and Modernization</h1>
+            <div class="meta">
+                February 5, 2026
+                <span class="tag">Engineering</span>
+                <span class="tag">DevLog</span>
+            </div>
+        </header>
+
+        <p>Today marks a significant milestone in the evolution of this framework. We successfully executed a project-wide hard-fork and rename, transforming <strong>AgentOS</strong> into <strong>AssemblyZero</strong>. This wasn't just a find-and-replace exercise; it was a comprehensive audit, cleanup, and modernization of the entire stack.</p>
+
+        <p>Here is how we achieved a 100% stable build and reduced build noise by over 99% in a single session.</p>
+
+        <h2>1. The Rename Protocol: Preserving History</h2>
+
+        <p>Renaming a package is dangerous when your project relies on immutable audit trails. We have thousands of files in <code>docs/audit</code> and <code>docs/lineage</code> that represent historical records.</p>
+
+        <p><strong>The Strategy:</strong></p>
+        <ul>
+            <li><strong>Isolation:</strong> We used the <strong>Worktree Isolation Rule</strong> to perform the refactor in a separate filesystem space.</li>
+            <li><strong>Selective Targeting:</strong> We wrote a custom Python script to perform case-sensitive string replacements (<code>agentos</code> &rarr; <code>assemblyzero</code>, <code>AgentOS</code> &rarr; <code>AssemblyZero</code>).</li>
+            <li><strong>Immutable Zones:</strong> We explicitly excluded <code>docs/audit/</code>, <code>docs/lineage/</code>, and <code>docs/session-logs/</code> from the refactor, ensuring our historical "Chain of Custody" remains intact while the active code evolved.</li>
+        </ul>
+
+        <h2>2. Diagnosing the "Ghost" Failures</h2>
+
+        <p>After the rename, the build initially failed. As a Senior QA Engineer, I had to diagnose why three specific tests were red in a supposedly "green" codebase.</p>
+
+        <ul>
+            <li><strong>Config Drift:</strong> <code>test_110</code> failed because <code>.gitignore</code> still referenced <code>.agentos/</code>. The test expected the new namespace.</li>
+            <li><strong>Assertion Drift:</strong> Two implementation tests failed because they performed exact string matching on error messages. Recent updates to our <code>implement_code</code> node added sophisticated retry logic, changing <code>"Claude API error"</code> to <code>"API error after 3 attempts"</code>.</li>
+        </ul>
+
+        <p><strong>The Fix:</strong> We modernized the test suite to match the improved, more descriptive error reporting of the actual engine.</p>
+
+        <h2>3. The Dependency Audit: Lean Engineering</h2>
+
+        <p>We realized the <code>pyproject.toml</code> had accumulated "cruft" from previous experiments. Using an adapted version of our <strong>0911 Audit Protocol</strong>, we performed a top-down usage analysis.</p>
+
+        <ul>
+            <li><strong>Identifying Unused Deps:</strong> We confirmed that <code>pywinpty</code>, <code>tzdata</code>, <code>openpyxl</code>, and <code>wexpect</code> were no longer imported in the core.</li>
+            <li><strong>Side-car Compatibility:</strong> We verified that <a href="https://github.com/martymcenroe/unleashed">Unleashed</a> (our autonomous coding script) manages its own <code>pywinpty</code> dependency, making it safe to remove from the primary framework.</li>
+            <li><strong>Pruning:</strong> Removing these 6 packages automatically triggered Poetry to prune sub-dependencies like <code>psutil</code> and <code>pywin32</code>, resulting in a significantly leaner environment.</li>
+        </ul>
+
+        <h2>4. Modernizing to LangGraph 1.0</h2>
+
+        <p>The most impactful part of this session was the decision to move to the <strong>LangChain 1.2 / LangGraph 1.0 stack</strong>.</p>
+
+        <p>Operating on Python 3.14 (released Oct 2025) had introduced significant "warning noise"&mdash;297 warnings per test run, primarily due to the deprecation of <code>asyncio.iscoroutinefunction</code>.</p>
+
+        <p><strong>The Breakthrough:</strong> By performing a deterministic group update of the LangChain stack, we discovered that the library maintainers had already resolved these 3.14 compatibility issues in the new major versions.</p>
+
+        <div class="highlight">
+            <p><strong>Result:</strong></p>
+            <p><strong>Test Status:</strong> 1795 Passed / 0 Failed</p>
+            <p><strong>Warning Count:</strong> Dropped from <strong>297</strong> to <strong>2</strong></p>
+            <p><strong>Build Quality:</strong> Signal-to-noise ratio improved by <strong>99.3%</strong></p>
+        </div>
+
+        <h2>5. Deterministic Loops: Moving from Choice to Code</h2>
+
+        <p>One of the key realizations of this session was that dependency maintenance should not be a "selective" process prone to human error.</p>
+
+        <p>By attempting a "One-by-One" update strategy, we successfully modernized <strong>28 outdated packages</strong>. Crucially, the process identified a hard conflict where the latest <code>google-genai</code> SDK is incompatible with <code>websockets 16.0</code>.</p>
+
+        <p>Because we followed a deterministic "Update &rarr; Test &rarr; Commit/Rollback" loop, we were able to keep the build green while moving as many packages forward as possible. We are now formalizing this "Safe Loop" into an automated tool to ensure no utility package is ever left behind due to agent selection bias.</p>
+
+        <h2>6. Lessons Learned</h2>
+
+        <ol>
+            <li><strong>Worktrees are Non-Negotiable:</strong> Performing these heavy operations in isolated worktrees allowed us to fail fast, rollback, and re-attempt without ever leaving the main branch in a broken state.</li>
+            <li><strong>Trust Exit Codes:</strong> Our 0911 protocol emphasizes trusting <code>pytest</code> exit codes over LLM interpretation. This prevented us from merging a "mostly working" update.</li>
+            <li><strong>Upstream Awareness:</strong> In 2026, staying on the edge of the LangChain/LangGraph ecosystem is the most effective way to resolve Python core deprecation noise.</li>
+        </ol>
+
+        <hr>
+
+        <p>The project is now officially <strong>AssemblyZero</strong>. We are leaner, modern, and 100% green.</p>
+
+        <p class="closing">The Turtle Moves.</p>
+    </article>
+
+    <footer>
+        <p>&copy; 2026 <a href="../">Marty McEnroe</a> &middot; ThriveTech.ai</p>
+    </footer>
+</body>
+</html>
