@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Architecture | Marty McEnroe</title>
+    <meta name="description" content="How Hermes works: deterministic first contact, AI-assisted replies, audit gates, tech stack, and data handling.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --radius: 8px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { opacity: 0.85; }
+        .back { font-size: 0.9rem; margin-bottom: 2.5rem; display: inline-block; }
+        .back:hover { text-decoration: underline; }
+        article header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        article header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; margin-bottom: 0.75rem; }
+        .meta { font-size: 0.875rem; color: var(--text-secondary); }
+        article p { margin-bottom: 1.25rem; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; }
+        article strong { color: var(--text); }
+        article h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 1rem; color: var(--text); }
+        article h3 { font-size: 1.05rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: var(--text); }
+        article ul { margin-bottom: 1.25rem; padding-left: 1.5rem; color: var(--text-secondary); }
+        article li { margin-bottom: 0.5rem; font-size: 1.05rem; line-height: 1.7; }
+        article code {
+            background: var(--surface);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+            color: var(--accent);
+        }
+        .callout {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        @media (max-width: 640px) {
+            body { padding: 2rem 1.25rem; }
+            article header h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back">&larr; martymcenroe.ai</a>
+
+    <article>
+        <header>
+            <h1>Hermes Architecture</h1>
+            <div class="meta">Last updated: 2026-06-06</div>
+        </header>
+
+        <p>Hermes is the system that handles correspondence between recruiters and me. I built it because the volume of recruiter outreach made manual triage impractical and the alternative (ignoring it) cost me opportunities I would have wanted to look at. This page explains how it works end to end so you can know exactly what you are interacting with.</p>
+
+        <h2>The two ways a conversation starts</h2>
+
+        <h3>1. You email me directly at recruit@martymcenroe.ai</h3>
+        <p>Your message lands in a queue I call <strong>Held for Initial Review</strong>. Hermes does not auto-engage. I see your message in a dashboard, read it, and either release it to the AI pipeline (which sends the first email described below) or drop it. Until I release, nothing goes out.</p>
+
+        <h3>2. I forward a thread from my own inbox</h3>
+        <p>When I forward a recruiter thread from one of my personal addresses to my Hermes forwarder address, Hermes treats my forward as my explicit choice to engage. The first email goes out automatically in response.</p>
+
+        <p>In both paths, the first email is sent only after my judgement. New cold inbound never auto-engages.</p>
+
+        <h2>The first email is a program, not AI</h2>
+
+        <p>The first email is sent by software I wrote. The body is a template I composed myself, stored in a source file. No language model generates it. The only variable is your first name in the greeting, if I have it. The resume attachments are the same for every recipient.</p>
+
+        <p>People are familiar with programs. Email autoresponders, scheduled newsletters, ticketing systems. The first email is in that category. It is a deterministic process, not AI.</p>
+
+        <p>The template asks you to star a public GitHub repository before further conversation. There are two reasons:</p>
+
+        <ul>
+            <li><strong>The star tells me you are a real person.</strong> GitHub's captcha is non-trivial. Bots cannot pass it reliably. If you star, I have a strong signal you are human.</li>
+            <li><strong>The star tells me you have seen my work.</strong> Starring requires you to land on the repository page. If you are going to represent me to anyone, I would rather you have looked at what I have built.</li>
+        </ul>
+
+        <p>The resume is attached to the first email unconditionally. You do not need to star to receive it. The star is a filter for continued engagement, not a paywall for the resume.</p>
+
+        <h2>Replies after the first email use AI</h2>
+
+        <p>If you reply, your message goes back to Hermes and a response is generated using a large language model. I designed the system. I wrote the prompts. I set the rules the system follows and the gates it has to pass before it sends anything.</p>
+
+        <p>Every generated reply passes through automated quality gates that check for safety issues, hostile tone, and false claims about repository stars. Replies that fail the gates are routed to me for review before sending. Replies that pass are sent automatically.</p>
+
+        <p>Specific model and infrastructure details are in the Tech Stack section below.</p>
+
+        <h2>Tech stack</h2>
+
+        <p>Hermes is built on:</p>
+
+        <ul>
+            <li><strong>Cloudflare Workers</strong> for the inbound email handler and the dashboard backend.</li>
+            <li><strong>Cloudflare D1</strong> (SQLite) for conversation state.</li>
+            <li><strong>Cloudflare R2</strong> for resume attachments and asset caching.</li>
+            <li><strong>Cloudflare Vectorize</strong> for retrieval-augmented context.</li>
+            <li><strong>AWS Lambda</strong> for the asynchronous AI generation pipeline.</li>
+            <li><strong>AWS SQS</strong> as the queue between the Worker and the Lambda.</li>
+            <li><strong>AWS SES</strong> for outbound email.</li>
+            <li><strong>AWS Bedrock</strong> + <strong>Claude</strong> (Anthropic) for AI generation.</li>
+        </ul>
+
+        <h2>Opting out</h2>
+
+        <p>See the <a href="/Hermes/AI-policy/">AI Policy</a> page for opt-out methods. In short: reply asking to stop, click any unsubscribe link, or ignore the message.</p>
+
+        <h2>Source code</h2>
+
+        <p>Hermes itself is a private repository; I am happy to discuss architecture and design choices with anyone working on similar problems. My open-source work, including the multi-agent framework Hermes is built alongside, is at <a href="https://github.com/martymcenroe">github.com/martymcenroe</a>.</p>
+
+        <div class="callout">
+            <strong>Questions or concerns?</strong> Reply to any email from me, or write to <a href="mailto:marty@thrivetech.ai">marty@thrivetech.ai</a>. I read everything.
+        </div>
+    </article>
+</body>
+</html>
