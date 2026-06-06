@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Policy | Marty McEnroe</title>
+    <meta name="description" content="AI policy for email correspondence with Marty McEnroe. How to opt out. What automated and AI-generated messages look like.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --text: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --radius: 8px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { opacity: 0.85; }
+        .back { font-size: 0.9rem; margin-bottom: 2.5rem; display: inline-block; }
+        .back:hover { text-decoration: underline; }
+        article header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        article header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; margin-bottom: 0.75rem; }
+        .meta { font-size: 0.875rem; color: var(--text-secondary); }
+        article p { margin-bottom: 1.25rem; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; }
+        article strong { color: var(--text); }
+        article h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 1rem; color: var(--text); }
+        article ul { margin-bottom: 1.25rem; padding-left: 1.5rem; color: var(--text-secondary); }
+        article li { margin-bottom: 0.5rem; font-size: 1.05rem; line-height: 1.7; }
+        @media (max-width: 640px) {
+            body { padding: 2rem 1.25rem; }
+            article header h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back">&larr; martymcenroe.ai</a>
+
+    <article>
+        <header>
+            <h1>AI Policy</h1>
+            <div class="meta">Last updated: 2026-06-06</div>
+        </header>
+
+        <h2>Stopping these emails</h2>
+        <p>If you do not want further messages from me, do any of the following:</p>
+        <ul>
+            <li>Reply asking to stop, unsubscribe, or be removed. I will honor it.</li>
+            <li>Click the unsubscribe link in any of my emails.</li>
+            <li>Ignore the message. I do not follow up indefinitely.</li>
+        </ul>
+        <p>Any of these stops further messages to your address.</p>
+
+        <h2>What this is</h2>
+        <p>The first email I send you is a template I wrote myself. It is sent by software I built, called Hermes, in response to recruiter inbound to my address recruit@martymcenroe.ai or to a thread I forwarded from my own inbox. No new email is sent without my prior judgement. The first email contains no AI-generated content.</p>
+        <p>Replies after the first email use AI generation. I designed the system, the prompts, and the gates the system has to pass before it sends anything.</p>
+
+        <h2>Reply is consent</h2>
+        <p>If you reply without asking to stop or unsubscribe, you consent to continued automated correspondence under this policy. You can withdraw consent at any time using any method above.</p>
+
+        <h2>How it works</h2>
+        <p>Full architecture, tech stack, and details: <a href="/Hermes/architecture/">/Hermes/architecture</a></p>
+    </article>
+</body>
+</html>
