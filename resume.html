@@ -1,0 +1,706 @@
+<!-- Print to PDF: Ctrl+P → Save as PDF → More Settings → UNCHECK "Headers and footers" → Margins: Default -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martin McEnroe, P.E. &mdash; Enterprise Agentic AI Architect</title>
+<style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        font-size: 10.5pt;
+    }
+
+    body {
+        font-family: Calibri, 'Segoe UI', Arial, Helvetica, sans-serif;
+        color: #1a1a1a;
+        line-height: 1.35;
+        background: #fff;
+    }
+
+    /* ===== Page Setup for Print ===== */
+    @page {
+        size: letter;
+        margin: 0.35in 0.6in 0.35in 0.6in;
+    }
+
+    .page {
+        max-width: 7.5in;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    /* ===== Header / Name Block ===== */
+    .header {
+        text-align: center;
+        margin-bottom: 2pt;
+        padding-bottom: 0pt;
+    }
+
+    .header h1 {
+        font-size: 28pt;
+        font-weight: 400;
+        color: #1a1a1a;
+        letter-spacing: 1pt;
+        margin-bottom: 2pt;
+        font-family: Calibri, 'Segoe UI', Arial, Helvetica, sans-serif;
+    }
+
+    .contact-line {
+        font-size: 9.5pt;
+        color: #444;
+        margin-bottom: 0pt;
+    }
+
+    .contact-line a {
+        color: #444;
+        text-decoration: none;
+    }
+
+    .contact-line .sep {
+        margin: 0 6pt;
+        color: #999;
+    }
+
+    /* ===== Section Header Bars (dark maroon) ===== */
+    .section-bar {
+        background-color: #8B1A1A;
+        color: #fff;
+        text-align: center;
+        padding: 2pt 0;
+        margin: 3pt 0 2pt 0;
+        font-size: 11pt;
+        font-weight: 600;
+        letter-spacing: 1.5pt;
+        text-transform: uppercase;
+    }
+
+    /* ===== Headline / Tagline ===== */
+    .headline {
+        text-align: center;
+        margin-bottom: 2pt;
+    }
+
+    .headline h2 {
+        font-size: 13pt;
+        font-weight: 600;
+        color: #8B1A1A;
+        margin-bottom: 1pt;
+    }
+
+    .headline .subtitle {
+        font-size: 10pt;
+        color: #8B1A1A;
+        font-weight: 600;
+        letter-spacing: 0.5pt;
+        margin-bottom: 3pt;
+    }
+
+    /* ===== Summary ===== */
+    .summary {
+        font-size: 10pt;
+        line-height: 1.4;
+        text-align: left;
+        margin-bottom: 2pt;
+    }
+
+    /* ===== Skills Table ===== */
+    .skills-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 4pt 0 2pt 0;
+        font-size: 9.5pt;
+    }
+
+    .skills-table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 0pt 4pt;
+        line-height: 1.15;
+        width: 33.33%;
+    }
+
+    /* ===== Job Sections ===== */
+    .job {
+        margin-bottom: 5pt;
+    }
+
+    .job-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1pt;
+    }
+
+    .job-company {
+        font-size: 10.5pt;
+        font-weight: 700;
+    }
+
+    .job-location {
+        font-size: 10pt;
+        font-weight: 400;
+        color: #333;
+    }
+
+    .job-dates {
+        font-size: 10pt;
+        color: #333;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .job-title {
+        font-size: 10.5pt;
+        font-weight: 700;
+        text-align: center;
+        margin: 1pt 0 3pt 0;
+    }
+
+    .job-overview {
+        font-size: 10pt;
+        margin-bottom: 4pt;
+        line-height: 1.35;
+    }
+
+    .job ul {
+        margin: 2pt 0 2pt 18pt;
+        padding: 0;
+    }
+
+    .job li {
+        font-size: 10pt;
+        margin-bottom: 2pt;
+        line-height: 1.35;
+    }
+
+    .job li strong {
+        font-weight: 700;
+    }
+
+    /* ===== AT&T Multi-Role Structure ===== */
+    .company-block {
+        margin-bottom: 4pt;
+    }
+
+    .company-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 2pt;
+        border-bottom: 1.5pt solid #8B1A1A;
+        padding-bottom: 2pt;
+    }
+
+    .company-header .job-company {
+        font-size: 11pt;
+    }
+
+    .company-header .job-dates {
+        font-size: 10pt;
+    }
+
+    .role-block {
+        margin: 4pt 0 4pt 0;
+        page-break-inside: avoid;
+    }
+
+    .role-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 2pt;
+        padding-left: 0;
+    }
+
+    .role-title {
+        font-size: 10.5pt;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .role-dates {
+        font-size: 9.5pt;
+        color: #555;
+        white-space: nowrap;
+    }
+
+    .role-block .job-overview {
+        font-size: 10pt;
+        margin-bottom: 3pt;
+    }
+
+    .role-block ul {
+        margin: 2pt 0 2pt 18pt;
+        padding: 0;
+    }
+
+    .role-block li {
+        font-size: 10pt;
+        margin-bottom: 2pt;
+        line-height: 1.35;
+    }
+
+    .additional-roles {
+        margin: 4pt 0 2pt 0;
+        page-break-inside: avoid;
+    }
+
+    .additional-roles .role-title {
+        font-size: 10pt;
+        margin-bottom: 2pt;
+    }
+
+    .additional-roles p {
+        font-size: 10pt;
+        line-height: 1.35;
+    }
+
+    /* ===== Education, Certs, Patents ===== */
+    .edu-item {
+        margin-bottom: 1pt;
+    }
+
+    .edu-item .degree {
+        font-weight: 700;
+        font-size: 10pt;
+    }
+
+    .edu-item .school {
+        font-size: 10pt;
+    }
+
+    .cert-group {
+        margin-bottom: 4pt;
+    }
+
+    .cert-group .cert-heading {
+        font-weight: 700;
+        font-size: 10pt;
+    }
+
+    .cert-group .cert-detail {
+        font-size: 9.5pt;
+        margin-left: 14pt;
+    }
+
+    .cert-columns {
+        display: flex;
+        gap: 12pt;
+        margin-bottom: 4pt;
+    }
+
+    .cert-columns .cert-group {
+        flex: 1;
+        margin-bottom: 0;
+    }
+
+    .cert-line {
+        font-size: 10pt;
+        margin-bottom: 2pt;
+    }
+
+    .cert-line strong {
+        font-weight: 700;
+    }
+
+    /* ===== Memberships, Licensure ===== */
+    .inline-list {
+        font-size: 10pt;
+        line-height: 1.4;
+    }
+
+    /* ===== Print Styles ===== */
+    @media print {
+        body {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .section-bar {
+            background-color: #8B1A1A !important;
+            color: #fff !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            page-break-after: avoid;
+        }
+
+        a {
+            text-decoration: none !important;
+            color: inherit !important;
+        }
+
+        /* Hide URL printing after links */
+        a[href]::after {
+            content: none !important;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        .page-break-before {
+            page-break-before: always;
+        }
+
+        .role-block {
+            page-break-inside: avoid;
+        }
+
+        .company-header {
+            page-break-after: avoid;
+        }
+
+        .job {
+            page-break-inside: avoid;
+        }
+
+        .job-header,
+        .job-title,
+        .role-header {
+            page-break-after: avoid;
+        }
+
+        .cert-columns,
+        .cert-group,
+        .cert-line {
+            page-break-inside: avoid;
+        }
+    }
+
+    /* ===== Screen-only visual aids ===== */
+    @media screen {
+        body {
+            background: #e8e8e8;
+        }
+
+        .page {
+            background: #fff;
+            padding: 0.5in 0.6in;
+            margin: 20px auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .print-instructions {
+            background: #fffbe6;
+            border: 1px solid #e6d866;
+            padding: 8px 14px;
+            margin: 0 auto 12px auto;
+            max-width: 7.5in;
+            font-size: 10pt;
+            font-family: Calibri, Arial, sans-serif;
+            color: #555;
+            text-align: center;
+        }
+    }
+
+    @media print {
+        .print-instructions {
+            display: none !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>Martin McEnroe, P.E.</h1>
+        <div class="contact-line">
+            Plano, TX &ensp;&ensp;
+            <a href="mailto:recruit@martymcenroe.ai">recruit@martymcenroe.ai</a> &ensp;&ensp;
+            <a href="https://linkedin.com/in/martymcenroe">linkedin.com/in/martymcenroe</a> &ensp;&ensp;
+            <a href="https://github.com/martymcenroe">github.com/martymcenroe</a>
+        </div>
+    </div>
+
+    <!-- ===== HEADLINE ===== -->
+    <div class="section-bar">Enterprise Agentic AI Architect</div>
+    <div class="headline">
+        <div class="subtitle">Two U.S. Patents Filed 2026&mdash;AI Agent Safety &nbsp;&bull;&nbsp; 22 Patents Issued &nbsp;&bull;&nbsp; Licensed P.E. &nbsp;&bull;&nbsp; IEEE PES SC-5 Co-Chair</div>
+    </div>
+
+    <!-- ===== SUMMARY ===== -->
+    <div class="summary">
+        Architects and governs enterprise agentic AI systems, with three production platforms in service: multi-agent orchestration with cross-vendor adversarial verification, autonomous conversational agents with layered evaluation, and consumer AI with defense-in-depth guardrails. IEEE service concentrated in AI readiness for critical infrastructure: Co-Chair of the IEEE PES Long Range Planning Committee Subcommittee 5 on Emerging Technologies, Digitalization, and AI Readiness; Vice Chair on the published IEEE-SA Industry Connections white paper IC25-004-01 on Grid Readiness for Data Center Deployment (January 2026); Section Chair and Editor on the forthcoming IC25-004-02 on Data Center Design for IT Load Protection. Two U.S. Patents Filed 2026 on AI Agent Safety; 22 issued U.S. patents across a 29-year career at Bell Labs and AT&amp;T including five years as Director of Data Science and Artificial Intelligence.
+    </div>
+
+    <!-- ===== SECTION D: AGENT ARCHITECTURE AND GOVERNANCE ===== -->
+    <div class="section-bar">Agent Architecture and Governance</div>
+
+    <div class="summary" style="margin-bottom: 4pt;">
+        Three production agentic AI platforms publicly verifiable at <a href="https://github.com/martymcenroe">github.com/martymcenroe</a>&mdash;A+ contributor grade, 10,000+ contributions in the last year, 64 repositories contributed to.
+    </div>
+
+    <!-- D.1 AssemblyZero -->
+    <div class="job no-break">
+        <div class="job-title"><strong>AssemblyZero</strong>&mdash;Multi-Agent Orchestration with Cross-Vendor Adversarial Verification</div>
+        <ul>
+            <li>Five-stage LangGraph StateGraph pipeline (Triage&rarr;Design&rarr;Spec&rarr;TDD&rarr;PR) coordinating 12+ concurrent Claude and Gemini agents with typed state, conditional routing, retry-with-backoff, and crash recovery via serialized checkpoints.</li>
+            <li>Cross-vendor adversarial verification&mdash;Claude generates, Gemini reviews&mdash;catches hallucinations across model families.</li>
+            <li>Five-layer evaluation framework: execution-based verification (pytest exit codes drive routing), AST structural analysis, cross-model review, stagnation detection, longitudinal learning from accumulated verdicts.</li>
+            <li>740 issues processed, 88% closure rate, 434 pull requests merged, 5,583 tests. Stack: Python, LangGraph 1.0, DynamoDB, GitHub Actions.</li>
+        </ul>
+    </div>
+
+    <!-- D.2 Hermes -->
+    <div class="job no-break">
+        <div class="job-title"><strong>Hermes</strong>&mdash;Autonomous Production Agent</div>
+        <ul>
+            <li>Production autonomous email agent handling ~50 concurrent conversations with zero human intervention. Finite state machine governs persona and behavior across 9 states and 10 intents.</li>
+            <li>Two-stage LLM pipeline: Haiku for intent classification and entity extraction, Sonnet for generation with full context injection.</li>
+            <li>Pipeline of quality gates checks every output: anti-hallucination checks, sensitive-data pattern detection, AI-disclosure prevention, hostile-tone detection. Hybrid-cloud boundary at SQS&mdash;Cloudflare Worker ingests, AWS Lambda processes&mdash;chosen for autonomous-agent reliability: at-least-once delivery, retry-on-failure, dead-letter quarantine.</li>
+            <li>Stack: Cloudflare Workers, AWS Lambda, SQS, D1, Vectorize, Claude API.</li>
+        </ul>
+    </div>
+
+    <!-- D.3 Aletheia -->
+    <div class="job no-break">
+        <div class="job-title"><strong>Aletheia</strong>&mdash;Consumer AI with Layered Guardrails</div>
+        <ul>
+            <li>Seven-stage handler pipeline for consumer-facing AI product with independent short-circuiting at each stage. Two-layer guardrail system: deterministic denylist followed by semantic LLM classifier with five-category taxonomy returning confidence scores.</li>
+            <li>Tiered model routing: Nova Micro screens for layered-meaning potential, Claude Opus performs deeper multi-dimensional analysis on user demand.</li>
+            <li>Privacy-constrained observability&mdash;operational metadata only, no content logging.</li>
+            <li>Stack: AWS Lambda, Bedrock, DynamoDB, CloudFront, Chrome and Firefox extensions.</li>
+        </ul>
+    </div>
+
+    <!-- D.4 Maieutics -->
+    <div class="job no-break">
+        <div class="job-title"><strong>Maieutics</strong>&mdash;Methodology and Tooling for AI-Assisted Technical Authorship</div>
+        <ul>
+            <li>Methodology and tooling for AI-assisted technical authorship at institutional scale. The workflow constrains AI use to assistance and forces substantive human contribution at every step, so the resulting work is defensibly the author's under inspection.</li>
+            <li>Three core components: per-document audit-trail specification, semantic source-verification that catches paraphrase crossing into copying, and a workflow checklist mapping each step to demonstrable human contribution.</li>
+            <li>Legal anchor: USPTO Inventorship Guidance for AI-Assisted Inventions and the Pannu v. Iolab Corp. significant-contribution analysis.</li>
+            <li>Status: private preview, active development. License: PolyForm Noncommercial 1.0.0.</li>
+        </ul>
+    </div>
+
+    <!-- D.5 sentinel-rfc -->
+    <div class="job no-break">
+        <div class="job-title"><strong>sentinel-rfc</strong>&mdash;Agent-Context Permission Bit Architecture</div>
+        <ul>
+            <li>Active applied research program proposing agent-context permission bits as an architectural alternative to the "agent inherits user permissions" model that creates excessive blast radius for autonomous agents.</li>
+            <li>Scope includes manifest specification, capability authorization design, and prototype work targeting filesystem-level enforcement.</li>
+        </ul>
+    </div>
+
+    <!-- D.6 ARB -->
+    <div class="job no-break">
+        <div class="job-title"><strong>AI &amp; Data Science Architecture Review Board (AT&amp;T)</strong>&mdash;Enterprise Governance Precedent</div>
+        <ul>
+            <li>Founding chair of the enterprise AI and Data Science Architecture Review Board, establishing governance gates for AI systems across business units of a Fortune 10 enterprise.</li>
+            <li>Evaluated frameworks, vendors, and architectures for security, interoperability, licensing, and cost. Drove standardization of Python and R as enterprise-approved languages.</li>
+            <li>Deployed and administered Stack Overflow Enterprise to 31,000 users, navigating Technical Architecture Board approvals, security reviews, and privacy compliance.</li>
+        </ul>
+    </div>
+
+    <!-- ===== SECTION E: IEEE LEADERSHIP AND STANDARDS ===== -->
+    <div class="section-bar">IEEE Leadership and Standards</div>
+
+    <div class="job">
+        <div class="role-header">
+            <div class="role-title">Co-Chair, IEEE PES Long Range Planning Committee, Subcommittee 5</div>
+            <div class="role-dates">2026&ndash;present</div>
+        </div>
+        <div class="job-overview">
+            Emerging Technologies, Digitalization, and AI Readiness. Reports to PES Governing Board via LRPC Chair (PES President-Elect). Vision Document due July 2026 PES General Meeting.
+        </div>
+    </div>
+
+    <div class="job">
+        <div class="role-header">
+            <div class="role-title">Vice Chair, IC25-004-01&mdash;Industry Standards for Grid Readiness for Data Center Deployment</div>
+            <div class="role-dates">2025&ndash;2026</div>
+        </div>
+        <div class="job-overview">
+            IEEE-SA Industry Connections, Data Centers: Standards Needs Analysis and Recommendations. Published January 29, 2026 (<a href="https://ieeexplore.ieee.org/document/11366058">ieeexplore.ieee.org/document/11366058</a>). Recommendations triggered an IEEE SETCom study group (approved February 26, 2026) developing Project Authorization Requests for five new IEEE standards on data center interconnection, performance, modeling, co-located generation, and flexibility.
+        </div>
+    </div>
+
+    <div class="job">
+        <div class="role-header">
+            <div class="role-title">Section Chair and Editor, IC25-004-02 Section 5&mdash;Data Center Design for IT Load Protection</div>
+            <div class="role-dates">2025&ndash;2026</div>
+        </div>
+        <div class="job-overview">
+            Section 5: Consumption Patterns and Disturbance Response. IEEE-SA Industry Connections; publishing 2026.
+        </div>
+    </div>
+
+    <div class="job">
+        <div class="role-header">
+            <div class="role-title">Section Author, IEEE PES PSCCC S17&mdash;Use of Software Bill of Materials (SBOM) in the Energy Sector</div>
+            <div class="role-dates">2025&ndash;present</div>
+        </div>
+        <div class="job-overview">
+            Section: Use Cases in the EPS Industry. Six use-case analyses: procurement vs. maintenance vulnerability assessment, OSS licensing, country-of-origin and embargo risk, system-level SBOM, legacy devices, and SBOM scope beyond IEDs/RTUs. Citations span NIST SP 800-161 r1, NERC CIP-010/013, CISA/NSA/NTIA, NDAA &sect;889, BIS Entity List, and peer-reviewed substation BoM literature.
+        </div>
+    </div>
+
+    <!-- ===== SECTION F: PROFESSIONAL EXPERIENCE ===== -->
+    <div class="section-bar">Professional Experience</div>
+
+    <!-- ThriveTech.ai -->
+    <div class="job">
+        <div class="job-header">
+            <div><span class="job-company">THRIVETECH.AI</span> <span class="job-location">&ndash; Plano, TX</span></div>
+            <div class="job-dates">June 2022&ndash;present</div>
+        </div>
+        <div class="job-title">Founder &amp; President</div>
+        <div class="job-overview">
+            Independent AI architecture practice and C2C consulting vehicle; holds the independent invention portfolio. Active products: <strong>AssemblyZero</strong>, <strong>Hermes</strong>, <strong>Aletheia</strong>, <strong>Chiron</strong> (AI governance study SaaS for IAPP AIGP preparation), and <strong>Clio</strong> (Chrome extension for extracting LLM conversations to structured JSON).
+        </div>
+    </div>
+
+    <!-- TxDOT -->
+    <div class="job">
+        <div class="job-header">
+            <div><span class="job-company">TEXAS DEPARTMENT OF TRANSPORTATION</span> <span class="job-location">&ndash; Austin, TX</span></div>
+            <div class="job-dates">September 2023&ndash;April 2024</div>
+        </div>
+        <div class="job-title">AI Strategic Consultant</div>
+        <ul>
+            <li>Authored 76-page AI strategic plan encompassing 32 epics, 213 use cases, governance controls, risk assessments, and AI ethics framework for state-wide transportation agency.</li>
+            <li>Conducted stakeholder interviews across every division and district; applied LDA topic modeling to surface themes and identify high-priority AI applications meeting federal and state regulatory requirements.</li>
+            <li>Translated technical AI capabilities into business-value propositions for non-technical executives; established phased implementation roadmaps balancing feasibility, compliance, and organizational change.</li>
+        </ul>
+    </div>
+
+    <!-- Afiniti -->
+    <div class="job">
+        <div class="job-header">
+            <div><span class="job-company">AFINITI</span> <span class="job-location">&ndash; Washington, DC</span></div>
+            <div class="job-dates">March 2021&ndash;June 2022</div>
+        </div>
+        <div class="job-title">Vice President, Product</div>
+        <div class="job-overview">
+            Product and security leadership for AI-powered customer-agent pairing platform optimizing enterprise contact center operations through behavioral analytics and machine learning.
+        </div>
+        <ul>
+            <li>Led security architecture initiatives on a ~1M-line, 10-year-old C/C++ codebase: SonarQube vulnerability remediation, penetration test remediation, architecture reviews, API security hardening.</li>
+            <li>Defined cross-functional product development processes spanning engineering, AI research, MLOps, and go-to-market. Hands-on DevOps across GCP and Azure (Docker, Jira, CI/CD).</li>
+            <li>Set product strategy and prioritization across quarterly and sprint planning cycles, balancing ML algorithm investment against operational improvements and production issues.</li>
+        </ul>
+    </div>
+
+    <!-- ===== AT&T Multi-Role Block ===== -->
+    <div class="company-block">
+        <div class="company-header">
+            <div class="job-company">AT&amp;T <span class="job-location">&ndash; Plano, TX</span></div>
+            <div class="job-dates">September 1991&ndash;October 2020</div>
+        </div>
+
+        <!-- Role 1: Director, Data Science & AI -->
+        <div class="role-block">
+            <div class="role-header">
+                <div class="role-title">Director, Data Science &amp; Artificial Intelligence</div>
+                <div class="role-dates">September 2017&ndash;October 2020</div>
+            </div>
+            <div class="job-overview">
+                Hands-on architect and individual contributor leading enterprise-scale AI/ML solutions. Led 45-person cross-functional team, $9M annual labor budget, $10M+ recurring annual savings, $20M+ in initiative funding secured through SVP-level partnerships.
+            </div>
+            <ul>
+                <li><strong>TAVI</strong>&mdash;NLP customer-service chatbot (Python, TensorFlow, BERT, AWS Lambda, DynamoDB). 10,000+ daily interactions at 92% accuracy. Reduced costs $4.5M in 15 months; 30% first-call resolution improvement.</li>
+                <li><strong>SNAP</strong>&mdash;computer vision for field operations (Python, Azure CV, Core ML, Azure DevOps). First cloud-native AI solution at AT&amp;T enterprise scale. $5.8M annual savings; 30% field productivity improvement.</li>
+                <li><strong>EasyBake</strong>&mdash;no-code chatbot platform on Azure with API and RPA overlays to dozens of AT&amp;T enterprise systems. Three internal production customers. Pre-LLM conversational AI architecture.</li>
+                <li><strong>Label Quest</strong>&mdash;gamified human-in-the-loop labeling system used by dozens of internal data science teams, supporting text, image, and video labeling with real-time leaderboards, accuracy tracking, and consensus quality gates.</li>
+                <li>Delivered 90+ proof-of-concept solutions over three years; security protocols, audits, and vulnerability remediation for all AI deployments.</li>
+            </ul>
+        </div>
+
+        <!-- Role 2: Enterprise Architect -->
+        <div class="role-block">
+            <div class="role-header">
+                <div class="role-title">Lead Member Technical Staff, Enterprise Architect</div>
+                <div class="role-dates">May 2013&ndash;August 2017</div>
+            </div>
+            <ul>
+                <li>Founding chair of the AI &amp; Data Science Architecture Review Board (described in Section above).</li>
+                <li>Product manager for &lsquo;RCloud&rsquo; internal data science platform; led training on Python, R, APIs, and AI architectures.</li>
+                <li>Led tech evaluations setting enterprise direction: R vs SAS, MicroStrategy vs Tableau, GitHub vs Atlassian, AWS vs Azure vs GCP.</li>
+            </ul>
+        </div>
+
+        <!-- Role 3: Additional roles -->
+        <div class="additional-roles">
+            <div class="role-header">
+                <div class="role-title">Additional Roles (1991&ndash;2013)</div>
+            </div>
+            <p>
+                AT&amp;T Bell Labs R&amp;D (Holmdel, NJ; 1991&ndash;1995) &bull; Director of Program Management, IP Backbone &bull; Director of Emerging Video Services, Corporate Strategy &bull; Network Operations &amp; Engineering &bull; Wireless communications development (multiple patents) &bull; Resolved year-long migration crisis with 100-fold efficiency improvement in 45 days &bull; Secured SVP funding for AI initiatives.
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== SECTION G: LICENSURE, CERTS, EDUCATION, MEMBERSHIPS, PATENTS ===== -->
+    <div class="section-bar">Licensure</div>
+    <div class="inline-list">
+        <strong>Licensed Professional Engineer</strong>&mdash;State of Texas
+    </div>
+
+    <div class="section-bar">Certifications</div>
+    <div style="font-size: 10pt; line-height: 1.45; margin-top: 2pt;">
+        <div class="cert-columns">
+            <div class="cert-group">
+                <div class="cert-heading">AWS&mdash;7 Certifications including:</div>
+                <div class="cert-detail">Machine Learning&ndash;Specialty</div>
+                <div class="cert-detail">Solutions Architect&ndash;Professional</div>
+                <div class="cert-detail">Data Analytics&ndash;Specialty</div>
+                <div class="cert-detail">Data Engineer Associate</div>
+            </div>
+            <div class="cert-group">
+                <div class="cert-heading">Microsoft Azure:</div>
+                <div class="cert-detail">DevOps Engineer Expert</div>
+                <div class="cert-detail">AI Fundamentals</div>
+                <div class="cert-detail">Security, Compliance &amp; Identity Fundamentals</div>
+            </div>
+        </div>
+        <div class="cert-line"><strong>CISSP</strong> &amp; <strong>CCSP</strong>&mdash;(ISC)&sup2; <span class="sep">|</span> <strong>PMP</strong> &amp; <strong>PgMP</strong>&mdash;PMI <span class="sep">|</span> <strong>IEEE Senior Member</strong> &amp; <strong>Wireless Communications Professional (WCP)</strong></div>
+    </div>
+
+    <div class="section-bar">Education</div>
+    <div class="edu-item">
+        <span class="degree">Master of Computer Science</span>, University of Illinois Urbana-Champaign (2017)
+    </div>
+    <div class="edu-item">
+        <span class="degree">Master of Science, Electrical Engineering</span>, University of Maryland, College Park
+    </div>
+    <div class="edu-item">
+        <span class="degree">Bachelor of Science, Electrical Engineering</span>, University of Maryland, College Park
+    </div>
+
+    <div class="section-bar">Professional Memberships</div>
+    <div class="inline-list">
+        IEEE Senior Member &bull;
+        International Association of Privacy Professionals (IAPP) &bull;
+        (ISC)&sup2; &bull;
+        Project Management Institute (PMI) &bull;
+        Open Worldwide Application Security Project (OWASP)
+    </div>
+
+    <div class="section-bar">Patents</div>
+    <div class="inline-list">
+        <strong>Two U.S. Patents Filed 2026&mdash;AI Agent Safety.</strong> Independent inventor and applicant; active applied research program in autonomous-agent permission and capability architecture.
+        <br><br>
+        <strong>22 issued U.S. patents</strong> spanning AI, cloud computing, cybersecurity, IoT, and wireless communications, plus 9 pending applications. Domains include document analysis using ML and neural networks, customer service automation, sentiment detection, autonomous vehicle systems, edge network management, and biometric systems.
+    </div>
+
+</div><!-- /.page -->
+
+</body>
+</html>
