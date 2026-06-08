@@ -422,7 +422,8 @@
         <h1>Martin McEnroe, P.E.</h1>
         <div class="contact-line">
             Plano, TX &ensp;&ensp;
-            <a href="mailto:recruit@martymcenroe.ai">recruit@martymcenroe.ai</a> &ensp;&ensp;
+            <a href="mailto:martymcenroe@gmail.com">martymcenroe@gmail.com</a> &ensp;&ensp;
+            732-618-3455 &ensp;&ensp;
             <a href="https://linkedin.com/in/martymcenroe">linkedin.com/in/martymcenroe</a> &ensp;&ensp;
             <a href="https://github.com/martymcenroe">github.com/martymcenroe</a>
         </div>
@@ -459,12 +460,12 @@
 
     <!-- D.2 Hermes -->
     <div class="job no-break">
-        <div class="job-title"><strong>Hermes</strong>&mdash;Autonomous Production Agent</div>
+        <div class="job-title"><strong>Hermes</strong>&mdash;Autonomous Production Agent for Recruiter Triage</div>
         <ul>
-            <li>Production autonomous email agent handling ~50 concurrent conversations with zero human intervention. Finite state machine governs persona and behavior across 9 states and 10 intents.</li>
-            <li>Two-stage LLM pipeline: Haiku for intent classification and entity extraction, Sonnet for generation with full context injection.</li>
-            <li>Pipeline of quality gates checks every output: anti-hallucination checks, sensitive-data pattern detection, AI-disclosure prevention, hostile-tone detection. Hybrid-cloud boundary at SQS&mdash;Cloudflare Worker ingests, AWS Lambda processes&mdash;chosen for autonomous-agent reliability: at-least-once delivery, retry-on-failure, dead-letter quarantine.</li>
-            <li>Stack: Cloudflare Workers, AWS Lambda, SQS, D1, Vectorize, Claude API.</li>
+            <li>Production autonomous email agent for recruiter triage on Cloudflare Workers + AWS Bedrock. Architectural safety: deterministic first-contact template&mdash;zero AI on the highest-stakes message&mdash;audit queue gating AI-proposed actions, 10-state conversation state machine with escalation triggers (legal threat, message-count overflow, VIP allowlist), and operator-takeover flag (is_human_managed) for manual control.</li>
+            <li>Two-stage Bedrock pipeline on returning conversations: Haiku for intent classification + entity extraction (10 intents), Sonnet for generation with full context injection. 60-120 second human-like send delay.</li>
+            <li>Pipeline of quality gates on every output: anti-hallucination, sensitive-data pattern detection, AI-disclosure prevention, hostile-tone (27-phrase blocklist). Hybrid-cloud boundary at SQS&mdash;Cloudflare Worker ingests + pre-retrieves RAG, AWS Lambda processes&mdash;chosen for autonomous-agent reliability: at-least-once delivery, retry-on-failure, dead-letter quarantine. Form-fill gated behind verified GitHub star.</li>
+            <li>Stack: Cloudflare Workers, AWS Lambda, SQS, D1, Vectorize, R2, Bedrock, SES. ~$5-7/month at hundreds of messages.</li>
         </ul>
     </div>
 
