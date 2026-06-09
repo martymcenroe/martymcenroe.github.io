@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marty McEnroe | Agentic AI Architect</title>
-    <meta name="description" content="Agentic AI Architect & Multi-Agent Systems Engineer. Building stateful multi-agent orchestration, production RAG with guardrails, and autonomous AI agents.">
+    <title>Marty McEnroe | Enterprise Agentic AI Architect</title>
+    <meta name="description" content="Enterprise Agentic AI Architect. Production multi-agent orchestration, autonomous AI agents, consumer AI with layered guardrails. Licensed P.E. IEEE PES SC-5 (AI) Co-Chair. 22 U.S. patents.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,8 +12,10 @@
         :root {
             --bg: #0d1117;
             --surface: #161b22;
+            --surface-2: #1c2129;
             --text: #e6edf3;
             --text-secondary: #8b949e;
+            --text-strong: #c9d1d9;
             --accent: #58a6ff;
             --green: #3fb950;
             --amber: #d29922;
@@ -36,7 +38,7 @@
         p { margin-bottom: 1rem; color: var(--text-secondary); }
         strong { color: var(--text); font-weight: 600; }
 
-        header { margin-bottom: 3rem; }
+        header { margin-bottom: 2rem; }
         header h1 {
             font-size: 2.2rem;
             font-weight: 700;
@@ -53,6 +55,19 @@
             font-size: 0.95rem;
             color: var(--text-secondary);
         }
+
+        .creds {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            color: var(--text-strong);
+            line-height: 1.7;
+        }
+        .creds strong { color: var(--text); }
+        .creds .muted { color: var(--text-secondary); }
 
         .cta-box {
             background: var(--surface);
@@ -108,6 +123,16 @@
             margin-bottom: 1.5rem;
         }
 
+        .ieee-list { list-style: none; display: grid; gap: 0.75rem; margin-bottom: 3rem; }
+        .ieee-list li {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+        }
+        .ieee-role { color: var(--text); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+        .ieee-detail { color: var(--text-secondary); font-size: 0.9rem; }
+
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -132,6 +157,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         .project-card .desc {
             font-size: 0.9rem;
@@ -151,6 +177,7 @@
         .badge-public { background: rgba(63, 185, 80, 0.15); color: var(--green); }
         .badge-private { background: rgba(248, 81, 73, 0.15); color: var(--red); }
         .badge-featured { background: rgba(88, 166, 255, 0.15); color: var(--accent); }
+        .badge-research { background: rgba(210, 153, 34, 0.15); color: var(--amber); }
 
         .featured-card {
             background: var(--surface);
@@ -166,6 +193,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         .featured-card .desc {
             font-size: 0.95rem;
@@ -245,12 +273,20 @@
 <body>
     <header>
         <h1>Marty McEnroe</h1>
-        <div class="subtitle">Agentic AI Architect &amp; Multi-Agent Systems Engineer</div>
-        <div class="meta">ThriveTech.ai &middot; Professional Engineer &middot; 21 Patents &middot; Plano, TX</div>
+        <div class="subtitle">Enterprise Agentic AI Architect</div>
+        <div class="meta">ThriveTech.ai &middot; Plano, TX</div>
     </header>
 
+    <div class="creds">
+        <strong>Licensed P.E.</strong> (Texas) &middot;
+        <strong>IEEE PES SC-5 (AI) Co-Chair</strong> &middot;
+        <strong>22 U.S. Patents</strong> <span class="muted">(9 pending; 2 filed 2026 in AI Agent Safety)</span> &middot;
+        <strong>CISSP</strong> &middot;
+        <strong>CCSP</strong>
+    </div>
+
     <div class="cta-box">
-        <p class="cta-text">Open to principal/VP roles in agentic AI, multi-agent orchestration, and production LLM systems.</p>
+        <p class="cta-text">Open to principal/director/VP roles in agentic AI, multi-agent orchestration, AI governance, and production LLM systems.</p>
         <div class="cta-buttons">
             <a href="resume.pdf" class="btn btn-primary">Resume</a>
             <a href="https://linkedin.com/in/martymcenroe" class="btn">LinkedIn</a>
@@ -259,20 +295,40 @@
     </div>
 
     <main>
+        <div class="section-title">IEEE Standards &amp; Service</div>
+        <ul class="ieee-list">
+            <li>
+                <span class="ieee-role">Co-Chair, IEEE PES Long Range Planning Committee, Subcommittee 5</span>
+                <span class="ieee-detail">Emerging Technologies, Digitalization, and AI Readiness. 2026&ndash;present. Vision Document due July 2026 PES General Meeting.</span>
+            </li>
+            <li>
+                <span class="ieee-role">Vice Chair, IC25-004-01 &mdash; Grid Readiness for Data Center Deployment</span>
+                <span class="ieee-detail">IEEE-SA Industry Connections. Published January 29, 2026: <a href="https://ieeexplore.ieee.org/document/11366058">ieeexplore.ieee.org/document/11366058</a>. Triggered an IEEE SETCom study group developing five new IEEE standards.</span>
+            </li>
+            <li>
+                <span class="ieee-role">Section Chair &amp; Editor, IC25-004-02 Section 5 &mdash; Data Center Design for IT Load Protection</span>
+                <span class="ieee-detail">Consumption Patterns and Disturbance Response. Publishing 2026.</span>
+            </li>
+            <li>
+                <span class="ieee-role">Section Author, IEEE PES PSCCC S17 &mdash; SBOM in the Energy Sector</span>
+                <span class="ieee-detail">Use Cases in the EPS Industry. Citations span NIST SP 800-161 r1, NERC CIP-010/013, CISA/NSA/NTIA, NDAA &sect;889, BIS Entity List.</span>
+            </li>
+        </ul>
+
         <div class="section-title">Featured</div>
         <div class="featured-card">
             <h3>
                 <a href="https://github.com/martymcenroe/AssemblyZero">AssemblyZero</a>
                 <span class="badge badge-featured">Active</span>
             </h3>
-            <p class="desc">Production multi-agent orchestration framework built on LangGraph StateGraph. 5-stage deterministic pipeline with cross-model adversarial verification (Claude + Gemini), automated quality gates, and worktree-isolated concurrent agent execution across repositories.</p>
+            <p class="desc">Production multi-agent orchestration framework. Five-stage LangGraph StateGraph pipeline (Triage&rarr;Design&rarr;Spec&rarr;TDD&rarr;PR) coordinating 12+ concurrent Claude and Gemini agents. Cross-vendor adversarial verification &mdash; Claude generates, Gemini reviews &mdash; catches hallucinations across model families. Five-layer evaluation framework: execution-based verification, AST structural analysis, cross-model review, stagnation detection, longitudinal learning. 740 issues processed, 88% closure rate, 434 PRs merged, 5,583 tests.</p>
             <div class="highlights">
-                <span class="tag">LangGraph</span>
+                <span class="tag">LangGraph 1.0</span>
                 <span class="tag">Multi-Agent</span>
-                <span class="tag">StateGraph</span>
                 <span class="tag">Claude Code</span>
                 <span class="tag">Gemini</span>
                 <span class="tag">Python</span>
+                <span class="tag">DynamoDB</span>
             </div>
             <a href="https://github.com/martymcenroe/AssemblyZero/wiki" class="link">Documentation &rarr;</a>
         </div>
@@ -284,7 +340,7 @@
                     Hermes
                     <span class="badge badge-private">Private</span>
                 </h3>
-                <p class="desc">Autonomous email agent with FSM-driven conversation management. Embedding-based RAG retrieval, multi-stage quality gates, and real-time monitoring for production correspondence.</p>
+                <p class="desc">Autonomous email agent for recruiter triage. <strong>Deterministic first-contact template &mdash; zero AI on the highest-stakes message.</strong> 10-state conversation state machine with escalation triggers. Audit queue gating AI-proposed actions. Operator-takeover flag. Hybrid-cloud at SQS: Cloudflare Worker ingests, AWS Lambda processes. Two-stage Bedrock pipeline (Haiku intent &rarr; Sonnet generation) on returning conversations.</p>
                 <a href="mailto:marty@thrivetech.ai?subject=Request Access: Hermes" class="link">Request access &rarr;</a>
             </div>
 
@@ -293,17 +349,35 @@
                     <a href="https://github.com/martymcenroe/Aletheia">Aletheia</a>
                     <span class="badge badge-public">Public</span>
                 </h3>
-                <p class="desc">Consumer AI study tool with 7-stage handler pipeline, layered guardrails, and adversarial test suite. Serverless on AWS Lambda with LangGraph stateful workflows.</p>
+                <p class="desc">Consumer AI for semantic and etymological analysis. Seven-stage handler pipeline with independent short-circuiting. Two-layer guardrails: deterministic denylist plus semantic LLM classifier. Tiered routing: Haiku as default classifier, Opus invoked only as verifier when Haiku flags candidate prompt injection.</p>
                 <a href="https://aletheia.study" class="link">Live demo &rarr;</a>
             </div>
 
             <div class="project-card">
                 <h3>
-                    <a href="https://github.com/martymcenroe/RCA-PDF-extraction-pipeline">RCA-PDF Pipeline</a>
-                    <span class="badge badge-public">Public</span>
+                    Chiron
+                    <span class="badge badge-private">Private</span>
                 </h3>
-                <p class="desc">Automated document extraction and processing pipeline using AI vision models for invoice and form data capture.</p>
-                <a href="https://github.com/martymcenroe/RCA-PDF-extraction-pipeline" class="link">View on GitHub &rarr;</a>
+                <p class="desc">AI governance study SaaS for IAPP AIGP exam preparation. Built on the same orchestration and guardrail patterns as the production platforms.</p>
+                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Chiron" class="link">Request access &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <h3>
+                    Maieutics
+                    <span class="badge badge-private">Private</span>
+                </h3>
+                <p class="desc">Methodology and tooling for AI-assisted technical authorship at institutional scale. Forces substantive human contribution at every step. Anchored in USPTO Inventorship Guidance and <em>Pannu v. Iolab</em>. PolyForm Noncommercial 1.0.0.</p>
+                <a href="mailto:marty@thrivetech.ai?subject=Request Access: Maieutics" class="link">Request access &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <h3>
+                    sentinel-rfc
+                    <span class="badge badge-research">Research</span>
+                </h3>
+                <p class="desc">Applied research on agent-context permission bits as an architectural alternative to the "agent inherits user permissions" model that creates excessive blast radius for autonomous agents. Manifest specification, capability authorization design, filesystem-level prototype.</p>
+                <a href="mailto:marty@thrivetech.ai?subject=Request Access: sentinel-rfc" class="link">Request access &rarr;</a>
             </div>
 
             <div class="project-card">
@@ -311,7 +385,7 @@
                     <a href="https://github.com/martymcenroe/Clio">Clio</a>
                     <span class="badge badge-public">Public</span>
                 </h3>
-                <p class="desc">Chrome extension for extracting and archiving Gemini conversations. Preserves AI interaction history for long-term recall and analysis.</p>
+                <p class="desc">Chrome extension for extracting LLM conversations to structured JSON. Preserves message ordering, role, code blocks, and tool-use markers across ChatGPT, Claude, and Gemini.</p>
                 <a href="https://github.com/martymcenroe/Clio" class="link">View on GitHub &rarr;</a>
             </div>
 
@@ -320,7 +394,7 @@
                     <a href="https://github.com/martymcenroe/unleashed">Unleashed</a>
                     <span class="badge badge-public">Public</span>
                 </h3>
-                <p class="desc">Permission bypass system for Claude Code. Enables semi-autonomous agent sessions with auto-approval for power user workflows.</p>
+                <p class="desc">Permission bypass system for Claude Code. Enables semi-autonomous agent sessions with auto-approval for power-user workflows.</p>
                 <a href="https://github.com/martymcenroe/unleashed" class="link">View on GitHub &rarr;</a>
             </div>
 
@@ -329,7 +403,7 @@
                     <a href="https://github.com/martymcenroe/ai-power-systems-compendium">AI Power Systems</a>
                     <span class="badge badge-public">Public</span>
                 </h3>
-                <p class="desc">Curated AI/ML resources for the Bulk Power System and utility sector. Bridging power engineering and artificial intelligence.</p>
+                <p class="desc">Curated AI/ML resources for the Bulk Power System and utility sector. Companion to <a href="https://github.com/martymcenroe/best-of-pes-ai">best-of-pes-ai</a>, a weekly-updated ranked list of open-source AI/ML projects for IEEE PES domains.</p>
                 <a href="https://github.com/martymcenroe/ai-power-systems-compendium" class="link">View on GitHub &rarr;</a>
             </div>
 
