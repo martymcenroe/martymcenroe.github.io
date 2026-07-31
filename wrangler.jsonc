@@ -11,6 +11,12 @@
   // it is what GitHub Pages needs if this ever has to be rolled back.
   "name": "martymcenroe-ai",
   "compatibility_date": "2026-07-31",
+
+  // Keep the workers.dev URL alive. Passing --domain on the CLI without this key
+  // set silently disabled it, and the deploy that failed also took away the only
+  // surface we had for verifying the site before pointing the real domain at it.
+  "workers_dev": true,
+
   "assets": {
     "directory": "."
   }
