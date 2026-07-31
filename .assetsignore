@@ -1,0 +1,21 @@
+# Repo furniture that must not be served from martymcenroe.ai.
+# GitHub Pages served CLAUDE.md and README.md publicly (both returned 200); that
+# stops here.
+**/.git
+**/.github
+**/.DS_Store
+**/node_modules
+
+# Wrangler's own scratch dir. The assets directory is the repo root, so wrangler
+# writes its temp files INSIDE the thing it is about to publish. The first deploy
+# put /.wrangler/tmp/deploy-*/no-op-worker.js on the public site, serving 200.
+**/.wrangler
+.gitignore
+.unleashed.json
+.assetsignore
+wrangler.jsonc
+CLAUDE.md
+README.md
+
+# Kept in the repo so a rollback to GitHub Pages still works, but not published.
+CNAME
