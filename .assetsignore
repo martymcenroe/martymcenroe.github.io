@@ -1,0 +1,16 @@
+# Repo furniture that must not be served from martymcenroe.ai.
+# GitHub Pages served CLAUDE.md and README.md publicly (both returned 200); that
+# stops here.
+**/.git
+**/.github
+**/.DS_Store
+**/node_modules
+.gitignore
+.unleashed.json
+.assetsignore
+wrangler.jsonc
+CLAUDE.md
+README.md
+
+# Kept in the repo so a rollback to GitHub Pages still works, but not published.
+CNAME

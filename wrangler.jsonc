@@ -1,0 +1,17 @@
+{
+  // Static-assets Worker serving martymcenroe.ai.
+  //
+  // There is no `main` and no `binding`: this Worker is assets only, which is the
+  // documented shape for a plain static site. Cloudflare steers new static projects
+  // to Workers rather than Pages, and Workers is what the account's credentials can
+  // actually deploy.
+  //
+  // The assets directory is the repo root, so `.assetsignore` beside this file is what
+  // keeps repo furniture off the public site. CNAME stays in the repo but is not served:
+  // it is what GitHub Pages needs if this ever has to be rolled back.
+  "name": "martymcenroe-ai",
+  "compatibility_date": "2026-07-31",
+  "assets": {
+    "directory": "."
+  }
+}
