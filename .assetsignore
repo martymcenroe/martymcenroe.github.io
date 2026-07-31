@@ -5,6 +5,11 @@
 **/.github
 **/.DS_Store
 **/node_modules
+
+# Wrangler's own scratch dir. The assets directory is the repo root, so wrangler
+# writes its temp files INSIDE the thing it is about to publish. The first deploy
+# put /.wrangler/tmp/deploy-*/no-op-worker.js on the public site, serving 200.
+**/.wrangler
 .gitignore
 .unleashed.json
 .assetsignore

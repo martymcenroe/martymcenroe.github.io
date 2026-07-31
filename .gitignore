@@ -1,2 +1,5 @@
 # Unleashed session transcripts (auto-generated, untracked)
 data/unleashed/
+
+# Wrangler scratch (also excluded from publishing via .assetsignore)
+.wrangler/
