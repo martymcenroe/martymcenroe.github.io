@@ -25,3 +25,10 @@ README.md
 
 # Kept in the repo so a rollback to GitHub Pages still works, but not published.
 CNAME
+
+# resume.docx still carries the old maroon scheme and cannot be regenerated from
+# this repo, so it now contradicts resume.html and resume.pdf. Nothing links to it;
+# index.html links the pdf. Kept in the repo, no longer reachable on the site, so a
+# recruiter cannot stumble onto an off-brand copy of the resume. Delete this line if
+# you want it published again.
+resume.docx
