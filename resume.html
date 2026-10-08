@@ -374,6 +374,14 @@
             page-break-inside: auto;
         }
 
+        /* A job may split between bullets, never inside one: a bullet broken
+           mid-sentence across a page reads as two fragments. One bullet is at
+           most a few lines, so the gap this can leave stays small. */
+        .job li {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
         .job-header,
         .job-title,
         .role-header {
@@ -466,7 +474,7 @@
             <div class="role-dates">2025&ndash;present</div>
         </div>
         <div class="job-overview">
-            Activity Secretary of the IEEE Standards Association program on data center growth, the sector&rsquo;s most urgent capacity problem. Vice Chair of the first white paper, published January 2026 (<a href="https://ieeexplore.ieee.org/document/11366058">ieeexplore.ieee.org/document/11366058</a>). It triggered an IEEE study group that approved five new standards projects. One of four lead authors on the second paper, now in editorial review.
+            Activity Secretary of the IEEE Standards Association program on data center growth, the sector&rsquo;s most urgent capacity problem. Vice Chair of the first white paper, published January 2026 (<a href="https://ieeexplore.ieee.org/document/11366058">ieeexplore.ieee.org/document/11366058</a>). It triggered an IEEE study group that approved five new standards projects. One of four lead authors on the second report, <em>Data Center Design for IT Load Protection</em>, published September 10, 2026.
         </div>
     </div>
 
@@ -572,9 +580,10 @@
         </div>
         <div class="job-title">AI Strategic Consultant</div>
         <ul>
-            <li>Authored 76-page AI strategic plan encompassing 32 epics, 213 use cases, governance controls, risk assessments, and AI ethics framework for state-wide transportation agency.</li>
-            <li>Conducted stakeholder interviews across every division and district; applied LDA topic modeling to surface themes and identify high-priority AI applications meeting federal and state regulatory requirements.</li>
-            <li>Translated technical AI capabilities into business-value propositions for non-technical executives; established phased implementation roadmaps balancing feasibility, compliance, and organizational change.</li>
+            <li>Authored a 76-page AI strategic plan and three-year roadmap for a statewide transportation agency: 30+ epics and 200+ use cases spanning asset management, predictive maintenance, fleet management, IT asset management, supply chain, inventory, procurement, contract management, construction, project delivery, capital planning, real-time traffic operations, and incident response.</li>
+            <li>Defined the target-state data architecture: a central data hub with a metadata catalog and data quality controls, built on the agency&rsquo;s enterprise data platform joining asset, project, financial, and maintenance data on one linear reference system.</li>
+            <li>Designed AI governance through a cross-divisional AI Council, with a risk framework to map, measure, and manage AI risk through intake, likelihood-and-impact scoring, and lifecycle reviews; evaluated build-versus-buy options for generative AI across Google Cloud, AWS, Azure, and OpenAI.</li>
+            <li>Led statewide employee focus groups and stakeholder interviews across every division and district. Applied LDA topic modeling to rank high-priority applications against federal and state regulatory requirements, translated AI capabilities into business value for executives, and phased each use case from proof of concept to general availability.</li>
         </ul>
     </div>
 
