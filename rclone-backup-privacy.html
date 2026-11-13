@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rclone-backup privacy policy</title>
+    <meta name="description" content="Privacy policy of rclone-backup, a personal OAuth client for rclone.">
+    <style>
+        :root {
+            --bg: #0c1116;
+            --text: #e8eef5;
+            --text-secondary: #9fb0c2;
+            --accent: #43c6b9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
+        h2 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        a { color: var(--accent); }
+        code { color: var(--text); }
+    </style>
+</head>
+<body>
+    <h1>rclone-backup privacy policy</h1>
+
+    <p>rclone-backup is the OAuth client that the rclone program uses to copy one person's files to that person's Google Drive. Its only user is the Google account that created it.</p>
+
+    <h2>What it can access</h2>
+    <p>Through the <code>drive.file</code> scope, it reaches only the Drive files that rclone created or opened through it.</p>
+
+    <h2>What it collects</h2>
+    <p>It collects nothing and has no server. rclone runs on the user's own computers and keeps its Google sign-in token there.</p>
+
+    <h2>Who receives data</h2>
+    <p>Only Google receives data. It stores the copied files in the user's Drive.</p>
+
+    <h2>How long data is kept</h2>
+    <p>The copied files stay in the user's Drive until the user deletes them. The sign-in token stays on the user's computers until the user deletes it or revokes access at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+
+    <p>Effective 2026-11-13.</p>
+</body>
+</html>
